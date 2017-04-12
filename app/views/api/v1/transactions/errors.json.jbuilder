@@ -1,2 +1,0 @@
-json.extract! @transaction, :errors
-

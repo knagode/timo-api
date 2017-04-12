@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20160203095202) do
 
   create_table "bank_guarantees", force: :cascade do |t|
-    t.boolean  "active", default: false
+    t.boolean  "active", default: true
     t.integer  "transaction_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 20160203095202) do
 
   create_table "transactions", force: :cascade do |t|
     t.string   "name",        limit: 255
-    t.boolean  "active", default: false
+    t.boolean  "active", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end

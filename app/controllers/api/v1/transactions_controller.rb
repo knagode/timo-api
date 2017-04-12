@@ -9,13 +9,13 @@ class Api::V1::TransactionsController < ApplicationController
     if @transaction.save
       render_success :created
     else
-      render_errors
+      render_errors @transaction.errors
     end
   end
 
   def update
     if @transaction.update(transaction_params)
-      render_errors
+      render_errors @transaction.errors
     else
       render_success
     end
@@ -25,20 +25,11 @@ class Api::V1::TransactionsController < ApplicationController
     if @transaction.safe_destroy!
       render_success
     else
-      render_errors
+      render_errors @transaction.errors
     end
   end
 
   private
-    # response handlers
-    def render_success status = :ok
-      render :show, status: status
-    end
-
-    def render_errors
-      render json: @transaction.errors, status: :unprocessable_entity
-    end
-
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction
       @transaction = Transaction.find(params[:id])
