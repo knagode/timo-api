@@ -1,4 +1,4 @@
-describe TransactionsController, type: :controller do
+describe BankGuaranteesController, type: :controller do
   describe '#destroy' do
     subject do
       delete :destroy, id: bank_guarantee.id
