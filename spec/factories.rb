@@ -2,7 +2,10 @@ FactoryGirl.define do
 
   factory :transaction do
     name "New Transaction"
-    active true
+
+    trait :inactive do
+      active: false
+    end
   end
 
 end
