@@ -7,22 +7,26 @@ class Api::V1::BankGuaranteesController < ApplicationController
   def create
     @bank_guarantee = BankGuarantee.new(bank_guarantee_params)
 
-    respond_to do |format|
-      if @bank_guarantee.save
-        format.json { render :show, status: :created }
-      else
-        format.json { render json: @bank_guarantee.errors, status: :unprocessable_entity }
-      end
+    if @bank_guarantee.save
+      render_success :created
+    else
+      render_errors @bank_guarantee.errors
     end
   end
 
   def update
-    respond_to do |format|
-      if @bank_guarantee.update(bank_guarantee_params)
-        format.json { render :show, status: :ok }
-      else
-        format.json { render json: @bank_guarantee.errors, status: :unprocessable_entity }
-      end
+    if @bank_guarantee.update(bank_guarantee_params)
+      render_success
+    else
+      render_errors @bank_guarantee.errors
+    end
+  end
+
+  def destroy
+    if @bank_guarantee.safe_destroy!
+      render_success
+    else
+      render_errors
     end
   end
 

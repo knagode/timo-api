@@ -6,23 +6,26 @@ class Api::V1::TransactionsController < ApplicationController
 
   def create
     @transaction = Transaction.new(transaction_params)
-
-    respond_to do |format|
-      if @transaction.save
-        format.json { render :show, status: :created }
-      else
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    if @transaction.save
+      render_success :created
+    else
+      render_errors @transaction.errors
     end
   end
 
   def update
-    respond_to do |format|
-      if @transaction.update(transaction_params)
-        format.json { render :show, status: :ok }
-      else
-        format.json { render json: @transaction.errors, status: :unprocessable_entity }
-      end
+    if @transaction.update(transaction_params)
+      render_errors @transaction.errors
+    else
+      render_success
+    end
+  end
+
+  def destroy
+    if @transaction.safe_destroy!
+      render_success
+    else
+      render_errors @transaction.errors
     end
   end
 
